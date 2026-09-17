@@ -28,6 +28,10 @@ label start:
 
     e "Once you add a story, pictures, and music, you can release it to the world!"
 
+    "I'm a narrator narrating"
+
+    "This is a line of narration. It doesn't have a character name, and it doesn't have quotation marks around it."
+
     # This ends the game.
 
     return
