@@ -20,7 +20,9 @@ label start:
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
 
-    show eileen happy
+    show nana:
+        yoffset 50
+        xalign 0.5
 
     # These display lines of dialogue.
 
