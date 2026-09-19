@@ -4,38 +4,34 @@
 # name of the character.
 
 define e = Character("Eileen")
-
+image bg falling_stars = Movie(play="images/backgrounds/animated/falling_stars.webm", loop=True)
 
 # The game starts here.
 
 label start:
 
- 
+    stop music fadeout 2.0
+    play music "zen.ogg"  fadein 2.0
+    scene knewton
+    scene bg falling_stars
+    with Fade(1.0, 0.5, 2.0)
 
-    # Show a background. This uses a placeholder by default, but you can
-    # add a file (named either "bg room.png" or "bg room.jpg") to the
-    # images directory to show it.
+    #wait 1 seconds
+    pause 0.5
 
-    scene bg room
+    "Who.... am I?"
+    "What... am I doing here? What is my purpose? Why am I here?"
+    pause 1.0
+    "Hmm... I feel like I've been here before."
+    "I feel like I've been here for a long time."
+    pause 0.5
+    "A... very long time..."
+    pause 1.0
+    "I... I feel like I have a purpose here."
+    "For the longest time, I've always had a feeling that I would become a..."
 
-    # This shows a character sprite. A placeholder is used, but you can
-    # replace it by adding a file named "eileen happy.png" to the images
-    # directory.
 
-    show nana:
-        yoffset 50
-        xalign 0.5
-
-    # These display lines of dialogue.
-
-    e "You've created a new Ren'Py game."
-
-    e "Once you add a story, pictures, and music, you can release it to the world!"
-
-    "I'm a narrator narrating"
-
-    "This is a line of narration. It doesn't have a character name, and it doesn't have quotation marks around it."
-
-    # This ends the game.
+    #jump to intro chapter
+    jump ch1_intro
 
     return
