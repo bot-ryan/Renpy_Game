@@ -21,16 +21,16 @@ label start:
     """
     Who.... am I?
 
-    What... am I doing here? What is my purpose?
+    What... am I doing here? Why am I here in the first place?
     """
     pause 1.0
     """
     Hmm... I feel like I've been here before.
 
-    I feel like I've been here for a long time.
+    For a long time...
     """
     pause 0.5
-    "A... very long time..."
+    "a... very long time..."
     pause 1.0
     "I... I feel like I have a purpose here."
    
