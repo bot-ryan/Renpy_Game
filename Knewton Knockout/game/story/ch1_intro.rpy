@@ -4,11 +4,16 @@ define nana = Character("Nana") #Hannah's character welcoming the player to the 
 
 label ch1_intro:
 
-    scene bg room with fade
-
+    stop music fadeout 2.0
+    play music "a_good_day.ogg"  fadein 2.0
+    scene bg room 
     show nana:
         yoffset 50
         xalign 0.5
+    
+    with Fade(1, 1, 1)
+
+    
 
     nana "Welcome to the game!"
 
