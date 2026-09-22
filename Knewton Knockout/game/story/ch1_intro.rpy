@@ -13,8 +13,6 @@ label ch1_intro:
     
     with Fade(1, 1, 1)
 
-    
-
     nana "Welcome to the game!"
 
     nana "I'm Nana, and I'll be your guide throughout your journey."
