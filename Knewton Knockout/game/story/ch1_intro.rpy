@@ -4,7 +4,7 @@ label ch1_intro:
 
     stop music fadeout 2.0
     play music "a_good_day.ogg"  fadein 2.0
-    scene bg room 
+    scene mc_bedroom_morning
     show nana cake:
         yalign 0.1
         xalign 0.5
