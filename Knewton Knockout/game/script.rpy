@@ -63,16 +63,9 @@ label start:
     "???" "Wake up, {b}[player_name]{/b}! It's your first day at Knewton Academy! You should probably get up and get ready for your first class!"
 
     "Jake" "Wait... my name is {b}[player_name]{/b}?!"
-   
-
-
-    
-
 
     #jump to intro chapter
-    #jump ch1_intro
+    jump ch1_intro
 
-
-    #testing
-    jump test_character
+  
     return
