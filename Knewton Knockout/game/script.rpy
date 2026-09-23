@@ -3,7 +3,6 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
-define e = Character("Eileen")
 image bg void = Movie(play="images/backgrounds/animated/the_void.webm", loop=True)
 
 # The game starts here.
