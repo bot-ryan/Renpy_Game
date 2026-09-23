@@ -70,6 +70,9 @@ label start:
 
 
     #jump to intro chapter
-    jump ch1_intro
+    #jump ch1_intro
 
+
+    #testing
+    jump test_character
     return
