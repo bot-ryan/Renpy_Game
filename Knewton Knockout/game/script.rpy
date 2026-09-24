@@ -9,6 +9,8 @@ image bg void = Movie(play="images/backgrounds/animated/the_void.webm", loop=Tru
 
 label start:
 
+    #jump ch1_intro
+
     stop music fadeout 2.0
     play music "zen.ogg"  fadein 2.0
     scene knewton
@@ -59,9 +61,9 @@ label start:
     "Ah, I'm getting lost in my own world, again. I should probably focus on the task at hand."
    
 
-    "???" "Wake up, {b}[player_name]{/b}! It's your first day at Knewton Academy! You should probably get up and get ready for your first class!"
+    "???" "Wake up, {b}[sibling_name()]{/b}! It's your first day at Knewton Academy! You should probably get up and get ready for your first class!"
 
-    "Jake" "Wait... my name is {b}[player_name]{/b}?!"
+    "{b}[sibling_name()]{/b}" "Wait... my name is {b}[sibling_name()]{/b}?!"
 
     #jump to intro chapter
     jump ch1_intro

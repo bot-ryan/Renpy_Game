@@ -20,7 +20,20 @@ init python:
                 "I hope you're ready for an exciting adventure!",
                 "Let's explore the world together!",
             ]
+        },
+
+        "aiko": {
+            "name": "Aiko",
+            "gender": "Female",
+            "color": "#d94747",
+            "images": {
+                "default": f"{student_path}/aiko/aiko_default.png",
+            },
+            "random_dialogues": [
+                "I'm Aikokokokoko"
+            ]
         }
+
     }
 
     # 3. Boot registration loop
