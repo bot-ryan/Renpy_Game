@@ -14,11 +14,10 @@ init python:
             "images": {
                 "cake": f"{student_path}/nana/nana_cake.png",
                 "default": f"{student_path}/nana/nana_default.png",
-            },
+            },  
             "random_dialogues": [
-                "Hello there! I'm Nana, your friendly guide.",
-                "I hope you're ready for an exciting adventure!",
-                "Let's explore the world together!",
+                "Hihi",
+                "Ugh, when's there gonna be a new quest..!"
             ]
         },
 
