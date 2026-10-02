@@ -34,6 +34,7 @@ label ch1_intro:
             if renpy.confirm(summary_msg):
                 # Player pressed 'Yes' / Confirmed
                 sibling "Great! Off to school we go!"
+                jump ch2_toKnewton
             else:
                 # Player pressed 'No' / Wants to edit
                 jump changenameorgender

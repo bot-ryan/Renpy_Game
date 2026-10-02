@@ -3,7 +3,7 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
-image bg void = Movie(play="images/backgrounds/animated/the_void.webm", loop=True)
+#image bg void = Movie(play="images/backgrounds/animated/the_void.webm", loop=True)
 
 # The game starts here.
 
@@ -14,7 +14,8 @@ label start:
     stop music fadeout 2.0
     play music "zen.ogg"  fadein 2.0
     scene knewton
-    scene bg void
+    scene sun_background01 with dissolve
+    show sun_particles
     with Fade(1.0, 0.5, 2.0)
 
     #wait 1 seconds
