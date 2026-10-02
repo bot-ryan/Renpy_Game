@@ -46,6 +46,20 @@ init python:
                 "I'm Aikokokokoko"
             ]
         }
+
+        "allena": {
+            "name": "Allena",
+            "gender": "Female",
+            "color": "#d94747",
+            "images": {
+                "default": f"{student_path}/allena/allena_default.png",
+                "happy" : f"{student_path}/allena/allena_happy.png",
+                "think" : f"{student_path}/allena/allena_think.png",
+            },
+            "random_dialogues": [
+                "I'm Allena"
+            ]
+        }
     }
 
     # 3. Boot registration loop
