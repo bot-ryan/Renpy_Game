@@ -61,9 +61,9 @@ label start:
     "Ah, I'm getting lost in my own world, again. I should probably focus on the task at hand."
    
 
-    "???" "Wake up, {b}[sibling_name()]{/b}! It's your first day at Knewton Academy! You should probably get up and get ready for your first class!"
+    "???" "Wake up, {b}[player_name()]{/b}! It's your first day at Knewton Academy! You should probably get up and get ready for your first class!"
 
-    "{b}[sibling_name()]{/b}" "Wait... my name is {b}[sibling_name()]{/b}?!"
+    "{b}[player_name()]{/b}" "Wait... my name is {b}[player_name()]{/b}?!"
 
     #jump to intro chapter
     jump ch1_intro
