@@ -20,6 +20,24 @@ label ch1_intro:
             show sibling happy with dissolve
             sibling "That's the spirit! Let's get going!"
 
+            # 1. Build the summary text message
+            $ summary_msg = (
+                f"CHARACTER SUMMARY:\n"
+                f"• Your Name: {player_name()}\n"
+                f"• Gender: {player_gender}\n"
+                f"• Sibling's Name: {sibling_name()}\n\n"
+                f"WARNING: Once you proceed, these choices CANNOT be changed again.\n\n"
+                f"Are you sure you want to continue?"
+            )
+
+            # 2. Open the built-in Ren'Py GUI popup box
+            if renpy.confirm(summary_msg):
+                # Player pressed 'Yes' / Confirmed
+                sibling "Great! Off to school we go!"
+            else:
+                # Player pressed 'No' / Wants to edit
+                jump changenameorgender
+
         "My name isn't {b}[player_name()]{/b}...":
             show sibling surprised with dissolve
             sibling "Oh no! I'm so sorry! What should I call you then?"
