@@ -14,9 +14,10 @@ label start:
     stop music fadeout 2.0
     play music "zen.ogg"  fadein 2.0
     scene knewton
-    scene sun_background01 with dissolve
-    show sun_particles
+    scene sun_background01
     with Fade(1.0, 0.5, 2.0)
+    show sun_particles
+    
 
     #wait 1 seconds
     pause 0.5

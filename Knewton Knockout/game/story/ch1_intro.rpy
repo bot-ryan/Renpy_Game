@@ -25,7 +25,6 @@ label ch1_intro:
                 f"CHARACTER SUMMARY:\n"
                 f"• Your Name: {player_name()}\n"
                 f"• Gender: {player_gender}\n"
-                f"• Sibling's Name: {sibling_name()}\n\n"
                 f"WARNING: Once you proceed, these choices CANNOT be changed again.\n\n"
                 f"Are you sure you want to continue?"
             )
