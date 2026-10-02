@@ -32,7 +32,6 @@ init python:
                 "I'm Aikokokokoko"
             ]
         }
-
     }
 
     # 3. Boot registration loop
@@ -52,3 +51,27 @@ init python:
             chosen_line = renpy.random.choice(lines)
             char_obj = getattr(store, char_id)
             renpy.say(char_obj, chosen_line)
+
+
+# =========================================================
+# REN'PY STATEMENTS (MUST BE OUTSIDE THE init python BLOCK)
+# =========================================================
+
+# 4. Generic Character speaker that uses sibling_name()
+define sibling = Character("[sibling_name()]", image="sibling")
+
+# Dynamic image tags linked to player_gender
+image sibling happy = ConditionSwitch(
+    "player_gender == 'F'", "images/characters/student/jake/jake_happy.png",
+    "True", "images/characters/student/nana/nana_happy.png"
+)
+
+image sibling surprised = ConditionSwitch(
+    "player_gender == 'F'", "images/characters/student/jake/jake_surprised.png",
+    "True", "images/characters/student/nana/nana_surprised.png"
+)
+
+image sibling cake = ConditionSwitch(
+    "player_gender == 'F'", "images/characters/student/jake/jake_cake.png",
+    "True", "images/characters/student/nana/nana_cake.png"
+)

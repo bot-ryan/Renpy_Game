@@ -15,5 +15,8 @@ default likes_sports = False
 
 
 init python:
-    def sibling_name():
+    def player_name():
         return store.brother_name if store.player_gender == "M" else store.sister_name
+
+    def sibling_name():
+        return store.brother_name if store.player_gender == "F" else store.sister_name
