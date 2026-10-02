@@ -47,7 +47,22 @@ label ch1_intro:
 
             jump changenameorgender
 
-        "(switch to Nana)":
-            pass
+        "(Switch to [sibling_name()])":
+            # 1. Flip gender state
+            if player_gender == "M":
+                $ player_gender = "F"
+            else:
+                $ player_gender = "M"
+
+            # 2. React to the change (ConditionSwitch updates the sprite automatically!)
+            show sibling surprised with dissolve
+            sibling "Oh, my mistake! So you're {b}[player_name()]{/b}, and I'm {b}[sibling_name()]{/b}!"
+
+            show sibling cake:
+                yalign 0.1
+                xalign 0.5
+            
+            # 3. Loop back to re-confirm or allow further tweaks
+            jump changenameorgender
 
     return
