@@ -2,7 +2,7 @@
 
 # Prologue #
 default player_gender = "M"
-default brother_name = "Jake"
+default brother_name = "Shakey"
 default sister_name = "Nana"
 default likes_art = False
 default likes_science = False

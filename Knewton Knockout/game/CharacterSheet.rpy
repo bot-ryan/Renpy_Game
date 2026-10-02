@@ -21,6 +21,20 @@ init python:
             ]
         },
 
+        "jake": {
+            "name": "Shakey",
+            "gender": "Male",
+            "color": "#9999ff",
+            "images": {
+                "cake": f"{student_path}/jake/jake_cake.png",
+                "default": f"{student_path}/jake/jake_default.png",
+            },  
+            "random_dialogues": [
+                "Wanna play a game of pickup?",
+                "Let me think... (he forgot what to say)"
+            ]
+        },
+
         "aiko": {
             "name": "Aiko",
             "gender": "Female",
