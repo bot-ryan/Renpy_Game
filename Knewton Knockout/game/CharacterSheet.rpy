@@ -45,7 +45,7 @@ init python:
             "random_dialogues": [
                 "I'm Aikokokokoko"
             ]
-        }
+        },
 
         "allena": {
             "name": "Allena",
