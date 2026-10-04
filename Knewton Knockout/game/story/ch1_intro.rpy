@@ -43,7 +43,7 @@ label ch1_intro:
             sibling "Oh no! I'm so sorry! What should I call you then?"
 
             # 1. Grab current active name for the text box default
-            $ current_name = player_name()
+            $ current_name = just_player_name()
             # Restrict maximum input length to 12 characters
             $ new_name = renpy.input("What is your real name?", default=current_name, length=12).strip()
 
