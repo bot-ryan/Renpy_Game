@@ -47,17 +47,22 @@ init python:
             ]
         },
 
-        "allena": {
-            "name": "Allena",
+        "allenna": {
+            "name": "Allenna",
             "gender": "Female",
             "color": "#d94747",
             "images": {
                 "default": f"{student_path}/allena/allena_default.png",
                 "happy" : f"{student_path}/allena/allena_happy.png",
                 "think" : f"{student_path}/allena/allena_think.png",
+                "shocked" : f"{student_path}/allena/allena_shocked.png",
+                "angry" : f"{student_path}/allena/allena_angry.png",
             },
             "random_dialogues": [
-                "I'm Allena"
+                "holeh moleh.",
+                "UHH i think it's a carrot..",
+                "OH LOWRD HAGE MERCY",
+                "i like apples and bananas :9 "
             ]
         }
     }
