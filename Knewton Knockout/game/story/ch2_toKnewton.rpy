@@ -41,4 +41,26 @@ label ch2_toKnewton:
     else:
         "[player_name()] is neither good nor bad at sports."
         "So naturally, [p.he] would blend in with his friends, but [p.he] never stood out amongst them either."
+
+    scene gate day with dissolve
+
+    "Finally, they would reach the gate to Knewton Academy."
+
+    menu freehint:
+        "Psst... [player_name()]! Would you like a hint?"
+
+        "Okay...?":
+            "I'm not supposed to give out hints like this but..."
+            "make sure you remember the route to school! [sibling_name()] might not be around to help you if you forget!"
+            "Also, choices matter in this game! So make sure you choose wisely!"
+            "Finally, make sure you pay attention to the quests and storyline. You might miss something important if you don't!"
+            "This game has multiple endings, so make sure you don't regret your choices!"
+            "Regardless, you can always replay the game to see what you missed!"
+
+        "No thanks!":
+            "Are you sure? You might regret it later if you don't take the hint!"
+
+    "Anyway, have fun!"
+    
+    jump ch3_meetingPeople     
 return
