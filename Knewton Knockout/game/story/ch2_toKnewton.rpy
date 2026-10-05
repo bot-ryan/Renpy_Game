@@ -27,4 +27,18 @@ label ch2_toKnewton:
     "Then, they would pass by the playground. [player_name()] would play football with [p.his] friends here, every single day!"
     if likes_sports:
         "Since [player_name()] is naturally athletic, [p.he] would always be the top player in the neighborhood."
+        "[p.His] stamina and agility would allow [p.him] to make the most impressive moves on the field."
+    elif likes_games:
+        "Since [player_name()] is a gamer, [p.he] would get too ambitious and make unrealistic moves such as trying to score a goal from the other side of the field."
+        "It never worked, but [p.he] would always try to do it anyway."
+        "[p.His] friends wouldn't mind, as long as [p.he] was willing to retrieve the ball."
+    elif likes_science:
+        "Since [player_name()] is a science nerd, [p.he] is somehow able to calculate the trajectory of the ball and make a perfect pass every time..."
+        "assuming that [p.he] doesn't have to put in much power, as [p.he] is not very athletic."
+    elif likes_art:
+        "However, [player_name()] would often get distracted by the beautiful scenery around the playground, and would often forget that [p.he] was supposed to be playing football."
+        "Fortunately, [p.his] friends found it hilarious."
+    else:
+        "[player_name()] is neither good nor bad at sports."
+        "So naturally, [p.he] would blend in with his friends, but [p.he] never stood out amongst them either."
 return
