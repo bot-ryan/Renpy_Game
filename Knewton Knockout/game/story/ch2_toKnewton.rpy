@@ -24,7 +24,7 @@ label ch2_toKnewton:
 
     scene playground 3 day with dissolve
 
-    "Then, they would pass by the playground. [player_name()] would play football with his friends here, every single day!"
+    "Then, they would pass by the playground. [player_name()] would play football with [p.his] friends here, every single day!"
     if likes_sports:
-        "Since [player_name()] is naturally athletic, [get_player_pronouns()[2]] would always be the top player in the neighborhood."
+        "Since [player_name()] is naturally athletic, [p.he] would always be the top player in the neighborhood."
 return

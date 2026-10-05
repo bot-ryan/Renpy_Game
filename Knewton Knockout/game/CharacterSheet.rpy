@@ -85,12 +85,49 @@ init python:
             char_obj = getattr(store, char_id)
             renpy.say(char_obj, chosen_line)
 
+    #4 Player pronouns
+    class PronounSet:
+        def __init__(self, is_player=True):
+            self.is_player = is_player
+
+        def _is_male(self):
+            # Player is male if gender == "M", sibling is male if gender == "F"
+            if self.is_player:
+                return store.player_gender == "M"
+            return store.player_gender == "F"
+
+        # Subject (he / she)
+        @property
+        def he(self):
+            return "he" if self._is_male() else "she"
+
+        @property
+        def He(self):
+            return self.he.capitalize()
+
+        # Object (him / her)
+        @property
+        def him(self):
+            return "him" if self._is_male() else "her"
+
+        @property
+        def Him(self):
+            return self.him.capitalize()
+
+        # Possessive (his / her)
+        @property
+        def his(self):
+            return "his" if self._is_male() else "her"
+
+        @property
+        def His(self):
+            return self.his.capitalize()
 
 # =========================================================
 # REN'PY STATEMENTS (MUST BE OUTSIDE THE init python BLOCK)
 # =========================================================
 
-# 4. Generic Character speaker that uses sibling_name()
+# 1. Generic Character speaker that uses sibling_name()
 define sibling = Character("[sibling_name()]", image="sibling")
 
 # Dynamic image tags linked to player_gender
@@ -108,3 +145,7 @@ image sibling cake = ConditionSwitch(
     "player_gender == 'F'", "images/characters/student/jake/jake_cake.png",
     "True", "images/characters/student/nana/nana_cake.png"
 )
+
+#2 for character pronouns
+define p = PronounSet(is_player=True)
+define s = PronounSet(is_player=False)
