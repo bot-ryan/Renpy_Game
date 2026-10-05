@@ -43,12 +43,6 @@ init python:
             
         return f"{{color={color}}}{name}{{/color}}"
 
-    def get_player_pronouns():
-        return ["his", "him", "he" ] if store.player_gender == "M" else ["her", "her", "she"]
-
-    def get_sibling_pronouns():
-        return ["her", "her", "she"] if store.player_gender == "M" else ["his", "him", "he"]
-
     def just_player_name():
         return store.brother_name if store.player_gender == "M" else store.sister_name
 
