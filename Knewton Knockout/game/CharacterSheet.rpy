@@ -52,17 +52,35 @@ init python:
             "gender": "Female",
             "color": "#d94747",
             "images": {
-                "default": f"{student_path}/allena/allena_default.png",
-                "happy" : f"{student_path}/allena/allena_happy.png",
-                "think" : f"{student_path}/allena/allena_think.png",
-                "shocked" : f"{student_path}/allena/allena_shocked.png",
-                "angry" : f"{student_path}/allena/allena_angry.png",
+                "default": f"{student_path}/allena/allenna_default.png",
+                "happy" : f"{student_path}/allena/allenna_happy.png",
+                "think" : f"{student_path}/allena/allenna_think.png",
+                "shocked" : f"{student_path}/allena/allenna_shocked.png",
+                "angry" : f"{student_path}/allena/allenna_angry.png",
             },
             "random_dialogues": [
                 "holeh moleh.",
                 "UHH i think it's a carrot..",
                 "OH LOWRD HAGE MERCY",
                 "i like apples and bananas :9 "
+            ]
+        },
+
+        "celeste": {
+            "name": "Celeste",
+            "gender": "Female",
+            "color": "#d94747",
+            "images": {
+                "default": f"{student_path}/celeste/celeste_default.png",
+                "happy" : f"{student_path}/celeste/celeste_happy.png",
+                "think" : f"{student_path}/celeste/celeste_think.png",
+                "shocked" : f"{student_path}/celeste/celeste_shocked.png",
+                "angry" : f"{student_path}/celeste/celeste_angry.png",
+            },
+            "random_dialogues": [
+                "random"
+                "random2"
+                "random3"
             ]
         }
     }
