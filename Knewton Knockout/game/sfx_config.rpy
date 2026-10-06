@@ -19,7 +19,11 @@ init python:
     ]
 
     def global_text_sfx(event, **kwargs):
-        # Trigger sound on dialogue show, but ignore skipping & rollback
+        # PRIORITY CHECK: Mute dialogue SFX while a toast notification is showing
+        if hasattr(store, "toast_mgr") and store.toast_mgr.is_showing:
+            return
+
+        # Regular dialogue SFX logic
         if event == "show" and not renpy.config.skipping and not renpy.in_rollback():
             if DIALOGUE_SFX_FILES:
                 random_sfx = renpy.random.choice(DIALOGUE_SFX_FILES)

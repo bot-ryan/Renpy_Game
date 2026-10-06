@@ -44,6 +44,9 @@ init python:
 # 2. TOAST QUEUE MANAGER ENGINE
 # =========================================================
 init python:
+    #Register a priority audio channel for notifications
+    renpy.music.register_channel("notification", "sfx", loop=False)
+
     class ToastQueueManager(object):
         def __init__(self):
             self.queue = []
@@ -65,9 +68,12 @@ init python:
                 self.is_showing = True
                 current = self.queue.pop(0)
 
-                # Play sound effect only if player is not fast-forwarding/skipping
                 if current["sfx"] and not renpy.config.skipping:
-                    renpy.sound.play(current["sfx"], channel="sound")
+                    # Cut off any dialogue SFX playing on the main sound channel
+                    renpy.sound.stop(channel="sound")
+                    
+                    # Play the notification SFX on its dedicated priority channel
+                    renpy.sound.play(current["sfx"], channel="notification")
 
                 renpy.show_screen("notification_toast", data=current)
 
