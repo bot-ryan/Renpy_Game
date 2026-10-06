@@ -35,12 +35,14 @@ label ch3_meetingPeople:
 
         stop music fadeout 2.0
         #play music "chill_music01.ogg" fadein 2.0
-        scene courtyard2 day with dissolve
-        with Fade(1.0, 2.0, 1.0)
+        scene courtyard2 day
+        with Fade(1.0, 1.0, 1.0)
         pause 1.0
 
         # Pauses gameplay until the player clicks Allenna or Celeste
         call screen ch3_interact
+
+        
 
         # --- TALK TO ALLENNA ---
         if _return == "allenna":

@@ -43,18 +43,22 @@ label start:
         "world-renowned scientist":
             $ likes_science = True
             "...so I could save lives and make the world a better place."
+            $ notify_event("Your character has a passion for science!", icon="images/ui/icons/science_icon.png")
            
         "generational artist":
             $ likes_art = True
             "...one artwork could sell for millions!"
+            $ notify_event("Your character has a passion for art!", icon="images/ui/icons/art_icon.png")
             
         "professional gamer":
             $ likes_games = True
             "...If I make it big, I can just stay home and play games all day!"
+            $ notify_event("Your character has a passion for gaming!", icon="images/ui/icons/gaming_icon.png")
 
         "world-class athlete":
             $ likes_sports = True
             "...I always wanted to share a stage with the best athletes in the world!"
+            $ notify_event("Your character has a passion for sports!", icon="images/ui/icons/sports_icon.png")
 
         "... (I don't know)":
             "...I don't know what I want to do with my life. But maybe I will figure that out here... or later."
