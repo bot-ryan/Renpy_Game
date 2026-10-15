@@ -247,3 +247,72 @@ screen quest_log_screen():
 
                     else:
                         text "Select a quest from the list to view details." align (0.5, 0.5) size 16 color "#6b7280"
+# ==============================================================================
+# QUEST MANAGER SYSTEM DOCUMENTATION & API REFERENCE
+# ==============================================================================
+# 
+# 1. QUICK FUNCTION API REFERENCE
+# ------------------------------------------------------------------------------
+# Action                  | Ren'Py Python Command                       | Description
+# ------------------------+---------------------------------------------+--------------------------------------------------------------
+# Start / Unlock Quest    | $ quest_mgr.start("quest_id")               | Changes state from "LOCKED" to "ACTIVE". Triggers toast notification.
+# Advance / Complete Step | $ quest_mgr.advance("quest_id")             | Advances step index by +1. Auto-completes when last step is cleared.
+# Fail Quest              | $ quest_mgr.fail("quest_id")                | Directly sets state to "FAILED". Triggers toast notification.
+# Check Quest Status      | quest_mgr.quests["quest_id"].status         | Returns string: "LOCKED", "ACTIVE", "COMPLETED", or "FAILED".
+# Check Current Step      | quest_mgr.quests["quest_id"].current_step   | Returns integer index of current active objective (0-indexed).
+# 
+# 
+# 2. REGISTERING QUESTS (label init_quests)
+# ------------------------------------------------------------------------------
+# Quests must be registered in init_quests before being called in script files.
+#
+# Syntax Template:
+#   quest_mgr.register(Quest(
+#       id="unique_quest_id",         # Unique key string
+#       title="Display Title",        # Quest name in UI
+#       category="Main Quest",        # "Main Quest" or "Side Quest"
+#       desc="Description text.",     # Quest details text
+#       steps=[                       # List of step strings (ordered 0 to N)
+#           "First objective",
+#           "Second objective"
+#       ],
+#       reward_text="Optional Reward" # Text displayed in REWARD section
+#   ))
+#
+#
+# 3. WORKFLOW EXAMPLES IN SCRIPT FILES (.rpy)
+# ------------------------------------------------------------------------------
+# --- Example A: Starting a Main Quest ---
+#   label ch3_start:
+#       $ quest_mgr.start("main_courtyard")
+#
+# --- Example B: Unlocking Conditional Side Quests ---
+#   menu:
+#       "Offer to help Allenna":
+#           $ quest_mgr.start("side_allenna_snack")
+#       "Ignore her":
+#           pass
+#
+# --- Example C: Advancing Objectives ---
+#   $ quest_mgr.advance("main_courtyard") # Step 0 -> Step 1
+#   $ quest_mgr.advance("main_courtyard") # Step 1 -> Step 2
+#   $ quest_mgr.advance("main_courtyard") # Final Step -> Auto-marks COMPLETED
+#
+# --- Example D: Failing a Quest ---
+#   if missed_deadline:
+#       $ quest_mgr.fail("side_allenna_snack")
+#
+# --- Example E: Conditional Dialogue Gating ---
+#   if quest_mgr.quests["side_allenna_snack"].status == "ACTIVE":
+#       player "Hey Celeste, do you have spare food?"
+#   elif quest_mgr.quests["side_allenna_snack"].status == "COMPLETED":
+#       allenna "Thanks for bringing me that apple earlier!"
+#
+#
+# 4. CONTROLS & KEYBINDINGS
+# ------------------------------------------------------------------------------
+# • Toggle Hotkey : Press "Q" or "Shift + Q" during gameplay.
+# • Quick Menu    : Click "Quests (Q)" on the bottom HUD toolbar.
+# • Pause Menu    : Access "Quests" directly from the ESC pause navigation menu.
+# • Dismiss       : Press "Q", "Esc", or click "✕ Close" in the Journal window.
+# ==============================================================================
