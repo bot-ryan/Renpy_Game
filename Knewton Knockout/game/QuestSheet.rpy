@@ -41,6 +41,14 @@ init python:
                 if hasattr(store, "notify_event"):
                     store.notify_event(f"Failed: {self.title}")
 
+        def complete(self):
+            """Immediately completes the quest regardless of current step progress."""
+            if self.status in ["LOCKED", "ACTIVE"]:
+                self.status = "COMPLETED"
+                self.current_step = len(self.steps)  # Set step pointer to the end
+                if hasattr(store, "notify_event"):
+                    store.notify_event(f"Completed: {self.title}")
+
 
     class QuestManager(object):
         def __init__(self):
@@ -63,6 +71,11 @@ init python:
 
         def get_by_status(self, status):
             return [q for q in self.quests.values() if q.status == status]
+
+        def complete(self, quest_id):
+            """Convenience wrapper to immediately complete a quest by ID."""
+            if quest_id in self.quests:
+                self.quests[quest_id].complete()
 
 
     # Initialize Manager Store Object
@@ -258,9 +271,9 @@ screen quest_log_screen():
 # Start / Unlock Quest    | $ quest_mgr.start("quest_id")               | Changes state from "LOCKED" to "ACTIVE". Triggers toast notification.
 # Advance / Complete Step | $ quest_mgr.advance("quest_id")             | Advances step index by +1. Auto-completes when last step is cleared.
 # Fail Quest              | $ quest_mgr.fail("quest_id")                | Directly sets state to "FAILED". Triggers toast notification.
+# Complete Immediately    | $ quest_mgr.complete("quest_id")            | Instantly marks quest COMPLETED regardless of step progress.
 # Check Quest Status      | quest_mgr.quests["quest_id"].status         | Returns string: "LOCKED", "ACTIVE", "COMPLETED", or "FAILED".
 # Check Current Step      | quest_mgr.quests["quest_id"].current_step   | Returns integer index of current active objective (0-indexed).
-# 
 # 
 # 2. REGISTERING QUESTS (label init_quests)
 # ------------------------------------------------------------------------------
