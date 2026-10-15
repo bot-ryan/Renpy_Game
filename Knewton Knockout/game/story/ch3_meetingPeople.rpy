@@ -40,6 +40,8 @@ label ch3_meetingPeople:
         with Fade(1.0, 1.0, 1.0)
         pause 1.0
 
+        "You xavier tan play mlbb every single day, and he is very bad at it."
+
         # Pauses gameplay until the player clicks Allenna or Celeste
         call screen ch3_interact
 
