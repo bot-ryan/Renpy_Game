@@ -29,7 +29,8 @@ screen ch3_interact():
 # =========================================================
 label ch3_meetingPeople:
 
-
+    # 1. Start the main quest at the beginning of the scene
+    $ quest_mgr.start("main_courtyard")
     # --- EXPLORATION LOOP ---
     label .explore_loop:
 

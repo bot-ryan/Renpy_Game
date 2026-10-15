@@ -8,7 +8,7 @@
 # The game starts here.
 
 label start:
-
+    call init_quests
     #jump ch1_intro
 
     stop music fadeout 2.0

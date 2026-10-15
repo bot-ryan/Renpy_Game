@@ -307,6 +307,8 @@ screen navigation():
 
             textbutton _("Save") action ShowMenu("save")
 
+            textbutton _("Quests") action ShowMenu("quest_log_screen")
+
         textbutton _("Load") action ShowMenu("load")
 
         textbutton _("Preferences") action ShowMenu("preferences")
@@ -1519,21 +1521,34 @@ style pref_vbox:
 
 ## Since a mouse may not be present, we replace the quick menu with a version
 ## that uses fewer and bigger buttons that are easier to touch.
-screen quick_menu():
-    variant "touch"
 
+
+screen quick_menu():
+
+    ## Ensure this appears on top of other screens.
     zorder 100
+
+    # 1. Desktop Hotkeys
+    key "K_q" action ToggleScreen("quest_log_screen")
 
     if quick_menu:
 
         hbox:
-            style "quick_menu"
             style_prefix "quick"
+            style "quick_menu"
 
             textbutton _("Back") action Rollback()
+            textbutton _("History") action ShowMenu('history')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Menu") action ShowMenu()
+            
+            # 2. Desktop Quest Button
+            textbutton _("Quests (Q)") action ToggleScreen("quest_log_screen")
+
+            textbutton _("Save") action ShowMenu('save')
+            textbutton _("Q.Save") action QuickSave()
+            textbutton _("Q.Load") action QuickLoad()
+            textbutton _("Prefs") action ShowMenu('preferences')
 
 
 style window:
