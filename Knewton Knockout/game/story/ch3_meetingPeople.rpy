@@ -1,5 +1,8 @@
 # game/story/ch3_meetingPeople.rpy
 
+default talked_allena = False
+default talked_celeste = False
+
 # =========================================================
 # 1. CLICKABLE SCREEN FOR THIS SCENE
 # =========================================================
@@ -29,29 +32,50 @@ screen ch3_interact():
 # =========================================================
 label ch3_meetingPeople:
 
-    # 1. Start the main quest at the beginning of the scene
-    $ quest_mgr.start("main_courtyard")
+    stop music fadeout 2.0
+    #play music "chill_music01.ogg" fadein 2.0
+    scene courtyard2 day
+    with Fade(1.0, 1.0, 1.0)
+    
+
+    show allenna_default:
+        xalign 0.25
+        yalign 1.0
+
+    show celeste_default:
+        xalign 0.75
+        yalign 1.0
+
+    pause 1.0
+
+    "You reach the school's courtyard, where you see two students standing nearby. They seem friendly and approachable."
+    $ quest_mgr.start("main_courtyard") #start the first main quest
+    "You should probably talk to them to get to know them better. You can click on either of them to start a conversation."
+    "Talk to both of them before going to class! You're forced to do this, cause it's part of the main quest..."
+    "Press (Q) or navigate to the menu to check your quest log if you forget what to do next."
+        
+        #If male player, then say dont be introvert, if girl player, then say dont be shy they're girls!
+    if player_gender == "M":
+        "I know you're a dude... but don't be an introvert! Just go talk to them!"
+    else:
+        "Don't be shy! They're girls, so just go talk to them! #girlpower"
+
+    # Pauses gameplay until the player clicks Allenna or Celeste
+    call screen ch3_interact
+    
+    
     # --- EXPLORATION LOOP ---
     label .explore_loop:
 
-        stop music fadeout 2.0
-        #play music "chill_music01.ogg" fadein 2.0
         scene courtyard2 day
-        with Fade(1.0, 1.0, 1.0)
-        pause 1.0
-
-        "You xavier tan play mlbb every single day, and he is very bad at it."
-
-        # Pauses gameplay until the player clicks Allenna or Celeste
-        call screen ch3_interact
-
-        
 
         # --- TALK TO ALLENNA ---
         if _return == "allenna":
             scene courtyard2 day
             show allenna default with dissolve
-            
+
+            talked_allena = True
+
             allenna "Hey! Nice to meet you!"
             # $ speak_random("allenna") # <--- Optional: Use your random dialogue pool!
 
@@ -61,6 +85,8 @@ label ch3_meetingPeople:
         elif _return == "celeste":
             scene courtyard2 day
             show celeste default with dissolve
+
+            talked_celeste = True
 
             celeste "Oh hi there! Are you excited for class?"
             # $ speak_random("celeste") # <--- Optional: Use your random dialogue pool!
