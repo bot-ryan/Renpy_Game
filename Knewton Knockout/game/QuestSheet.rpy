@@ -21,7 +21,7 @@ init python:
         def current_step(self):
             """
             Dynamically returns the first incomplete step index.
-            Used for rendering the [►] active objective marker in the UI.
+            Used for rendering the [[►]] active objective marker in the UI.
             """
             for idx in range(len(self.steps)):
                 if idx not in self.completed_indices:
@@ -29,7 +29,7 @@ init python:
             return len(self.steps)
 
         def is_step_completed(self, step_index):
-            """Helper check for UI rendering."""
+            """Helper check for UI rendering and story branching."""
             return step_index in self.completed_indices
 
         def start(self):
@@ -114,42 +114,7 @@ init python:
 
 
 # =========================================================
-# 2. MASTER QUEST REGISTRY & INITIALIZATION
-# =========================================================
-label init_quests:
-    python:
-        # MAIN QUEST 1
-        quest_mgr.register(Quest(
-            id="main_courtyard",
-            title="Making the Rounds",
-            category="Main Quest",
-            desc="Get acquainted with your new classmates in the courtyard before class starts.",
-            steps=[
-                "Talk to Allenna in the courtyard.",
-                "Talk to Celeste in the courtyard.",
-                "Head inside to class."
-            ],
-            reward_text="Unlocks Chapter 3 Story Progression"
-        ))
-
-        # CONDITIONAL SIDE QUEST 1
-        quest_mgr.register(Quest(
-            id="side_allenna_snack",
-            title="A Favor for Allenna",
-            category="Side Quest",
-            desc="Allenna mentioned she forgot her morning snack. See if you can find something for her.",
-            steps=[
-                "Ask Celeste if she has spare food.",
-                "Deliver the snack to Allenna."
-            ],
-            reward_text="Increased affection with Allenna"
-        ))
-
-    return
-
-
-# =========================================================
-# 3. TWO-PANEL QUEST LOG SCREEN
+# 2. TWO-PANEL QUEST LOG SCREEN
 # =========================================================
 screen quest_log_screen():
     tag menu
@@ -157,6 +122,7 @@ screen quest_log_screen():
 
     # Hotkey & Escape toggles
     key "K_q" action Hide("quest_log_screen")
+    key "shift_K_q" action Hide("quest_log_screen")
     key "game_menu" action [Hide("quest_log_screen"), Return()]
 
     # Default selected quest ID variable
@@ -273,11 +239,11 @@ screen quest_log_screen():
                                 for idx, step_text in enumerate(cur_q.steps):
                                     hbox:
                                         spacing 10
-                                        # Check if this specific step index was finished (in order or out of order)
+                                        # Check if this specific step index was finished
                                         if cur_q.status == "COMPLETED" or cur_q.is_step_completed(idx):
                                             text "[[✓]]" size 16 bold True color "#10b981"
                                             text step_text size 15 color "#9ca3af" strikethrough True
-                                        # Active objective pointer
+                                        # Active objective pointer (first uncompleted step)
                                         elif idx == cur_q.current_step and cur_q.status == "ACTIVE":
                                             text "[[►]]" size 16 bold True color "#f59e0b"
                                             text step_text size 15 bold True color "#ffffff"
@@ -293,24 +259,29 @@ screen quest_log_screen():
 
                     else:
                         text "Select a quest from the list to view details." align (0.5, 0.5) size 16 color "#6b7280"
+
+
 # ==============================================================================
 # QUEST MANAGER SYSTEM DOCUMENTATION & API REFERENCE
 # ==============================================================================
 # 
 # 1. QUICK FUNCTION API REFERENCE
 # ------------------------------------------------------------------------------
-# Action                  | Ren'Py Python Command                       | Description
-# ------------------------+---------------------------------------------+--------------------------------------------------------------
-# Start / Unlock Quest    | $ quest_mgr.start("quest_id")               | Changes state from "LOCKED" to "ACTIVE". Triggers toast notification.
-# Advance / Complete Step | $ quest_mgr.advance("quest_id")             | Advances step index by +1. Auto-completes when last step is cleared.
-# Fail Quest              | $ quest_mgr.fail("quest_id")                | Directly sets state to "FAILED". Triggers toast notification.
-# Complete Immediately    | $ quest_mgr.complete("quest_id")            | Instantly marks quest COMPLETED regardless of step progress.
-# Check Quest Status      | quest_mgr.quests["quest_id"].status         | Returns string: "LOCKED", "ACTIVE", "COMPLETED", or "FAILED".
-# Check Current Step      | quest_mgr.quests["quest_id"].current_step   | Returns integer index of current active objective (0-indexed).
+# Action                  | Ren'Py Python Command                          | Description
+# ------------------------+------------------------------------------------+--------------------------------------------------------------
+# Start / Unlock Quest    | $ quest_mgr.start("quest_id")                  | Changes state from "LOCKED" to "ACTIVE". Triggers toast notification.
+# Complete Specific Step  | $ quest_mgr.complete_step("quest_id", index)   | Marks a specific step (0, 1, 2...) complete out-of-order.
+# Advance Next Step       | $ quest_mgr.advance("quest_id")                | Finds the next uncompleted step and completes it sequentially.
+# Complete Instantly      | $ quest_mgr.complete("quest_id")               | Instantly marks ALL steps as completed and finishes quest.
+# Fail Quest              | $ quest_mgr.fail("quest_id")                   | Directly sets state to "FAILED". Triggers toast notification.
+# Check Quest Status      | quest_mgr.quests["quest_id"].status            | Returns string: "LOCKED", "ACTIVE", "COMPLETED", or "FAILED".
+# Check Step Finished     | quest_mgr.quests["quest_id"].is_step_completed(i)| Returns True/False if step index 'i' is finished.
+# Check Active Step Index | quest_mgr.quests["quest_id"].current_step      | Returns integer index of the first incomplete step.
 # 
-# 2. REGISTERING QUESTS (label init_quests)
+# 
+# 2. REGISTERING QUESTS (in game/quest_registry.rpy)
 # ------------------------------------------------------------------------------
-# Quests must be registered in init_quests before being called in script files.
+# Register all quests inside label init_quests in game/quest_registry.rpy:
 #
 # Syntax Template:
 #   quest_mgr.register(Quest(
@@ -318,9 +289,10 @@ screen quest_log_screen():
 #       title="Display Title",        # Quest name in UI
 #       category="Main Quest",        # "Main Quest" or "Side Quest"
 #       desc="Description text.",     # Quest details text
-#       steps=[                       # List of step strings (ordered 0 to N)
-#           "First objective",
-#           "Second objective"
+#       steps=[                       # List of step strings (0-indexed)
+#           "Talk to Allenna",        # Step Index 0
+#           "Talk to Celeste",        # Step Index 1
+#           "Go to Class"             # Step Index 2
 #       ],
 #       reward_text="Optional Reward" # Text displayed in REWARD section
 #   ))
@@ -332,27 +304,22 @@ screen quest_log_screen():
 #   label ch3_start:
 #       $ quest_mgr.start("main_courtyard")
 #
-# --- Example B: Unlocking Conditional Side Quests ---
-#   menu:
-#       "Offer to help Allenna":
-#           $ quest_mgr.start("side_allenna_snack")
-#       "Ignore her":
-#           pass
+# --- Example B: Out-of-Order Step Completion ---
+#   # Player talks to Celeste FIRST (Step Index 1)
+#   $ quest_mgr.complete_step("main_courtyard", 1)
+#   
+#   # Player talks to Allenna SECOND (Step Index 0)
+#   $ quest_mgr.complete_step("main_courtyard", 0)
 #
-# --- Example C: Advancing Objectives ---
-#   $ quest_mgr.advance("main_courtyard") # Step 0 -> Step 1
-#   $ quest_mgr.advance("main_courtyard") # Step 1 -> Step 2
-#   $ quest_mgr.advance("main_courtyard") # Final Step -> Auto-marks COMPLETED
+# --- Example C: Advancing Objectives Sequentially ---
+#   $ quest_mgr.advance("main_courtyard") # Completes next remaining incomplete step
 #
-# --- Example D: Failing a Quest ---
-#   if missed_deadline:
-#       $ quest_mgr.fail("side_allenna_snack")
+# --- Example D: Instant Quest Completion ---
+#   $ quest_mgr.complete("side_allenna_snack") # Marks all steps finished instantly
 #
-# --- Example E: Conditional Dialogue Gating ---
-#   if quest_mgr.quests["side_allenna_snack"].status == "ACTIVE":
-#       player "Hey Celeste, do you have spare food?"
-#   elif quest_mgr.quests["side_allenna_snack"].status == "COMPLETED":
-#       allenna "Thanks for bringing me that apple earlier!"
+# --- Example E: Conditional Dialogue Branching ---
+#   if quest_mgr.quests["main_courtyard"].is_step_completed(0):
+#       player "I already introduced myself to Allenna!"
 #
 #
 # 4. CONTROLS & KEYBINDINGS
