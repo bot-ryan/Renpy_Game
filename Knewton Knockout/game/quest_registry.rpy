@@ -1,5 +1,9 @@
 # game/quest_registry.rpy
 
+# TO DO: work on quest memory saving not affecting old saves
+
+
+
 # =========================================================
 # MASTER QUEST REGISTRY & INITIALIZATION
 # =========================================================
