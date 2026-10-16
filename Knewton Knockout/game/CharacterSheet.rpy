@@ -78,9 +78,9 @@ init python:
                 "angry" : f"{student_path}/celeste/celeste_angry.png",
             },
             "random_dialogues": [
-                "random"
-                "random2"
-                "random3"
+                "random",
+                "random2",
+                "random3",
             ]
         }
     }
