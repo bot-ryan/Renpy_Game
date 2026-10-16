@@ -35,6 +35,25 @@ init python:
                     if hasattr(store, "notify_event"):
                         store.notify_event(f"Updated: {self.title}")
 
+        def complete_step(self, step_index):
+            """Completes a specific step index out of order."""
+            if self.status == "ACTIVE" and 0 <= step_index < len(self.steps):
+                # We can track completed step indices using a set
+                if not hasattr(self, "completed_indices"):
+                    self.completed_indices = set()
+                
+                if step_index not in self.completed_indices:
+                    self.completed_indices.add(step_index)
+                    
+                    # If all steps are completed, mark quest as COMPLETED!
+                    if len(self.completed_indices) >= len(self.steps):
+                        self.status = "COMPLETED"
+                        if hasattr(store, "notify_event"):
+                            store.notify_event(f"Completed: {self.title}")
+                    else:
+                        if hasattr(store, "notify_event"):
+                            store.notify_event(f"Updated: {self.title}")
+
         def fail(self):
             if self.status == "ACTIVE":
                 self.status = "FAILED"
@@ -64,6 +83,10 @@ init python:
         def advance(self, quest_id):
             if quest_id in self.quests:
                 self.quests[quest_id].advance()
+
+        def complete_step(self, quest_id, step_index):
+            if quest_id in self.quests:
+                self.quests[quest_id].complete_step(step_index)
 
         def fail(self, quest_id):
             if quest_id in self.quests:

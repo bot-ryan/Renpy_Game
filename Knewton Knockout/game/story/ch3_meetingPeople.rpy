@@ -8,6 +8,9 @@ default talked_celeste = False
 # =========================================================
 screen ch3_interact():
 
+    if talked_allena and talked_celeste:
+        "You've talked to both students! You can now proceed to class."
+        return
     # Allenna (Left side)
     imagebutton:
         idle "images/characters/student/allenna/allenna_default.png"
@@ -62,6 +65,8 @@ label ch3_meetingPeople:
 
     # Pauses gameplay until the player clicks Allenna or Celeste
     call screen ch3_interact
+
+    "After dialogue interact"
     
     
     # --- EXPLORATION LOOP ---
@@ -74,7 +79,9 @@ label ch3_meetingPeople:
             scene courtyard2 day
             show allenna default with dissolve
 
-            talked_allena = True
+            $ talked_allena = True
+            # Complete Step 1 specifically (index 0)
+            $ quest_mgr.complete_step("main_courtyard", 0)
 
             allenna "Hey! Nice to meet you!"
             # $ speak_random("allenna") # <--- Optional: Use your random dialogue pool!
@@ -86,7 +93,9 @@ label ch3_meetingPeople:
             scene courtyard2 day
             show celeste default with dissolve
 
-            talked_celeste = True
+            $ talked_celeste = True
+            # Complete Step 2 specifically (index 1)
+            $ quest_mgr.complete_step("main_courtyard", 1)
 
             celeste "Oh hi there! Are you excited for class?"
             # $ speak_random("celeste") # <--- Optional: Use your random dialogue pool!
