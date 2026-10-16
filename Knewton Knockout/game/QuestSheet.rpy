@@ -15,37 +15,37 @@ init python:
             
             # Runtime states
             self.status = "LOCKED"    # "LOCKED", "ACTIVE", "COMPLETED", "FAILED"
-            self.current_step = 0
+            self.completed_indices = set()
+
+        @property
+        def current_step(self):
+            """
+            Dynamically returns the first incomplete step index.
+            Used for rendering the [►] active objective marker in the UI.
+            """
+            for idx in range(len(self.steps)):
+                if idx not in self.completed_indices:
+                    return idx
+            return len(self.steps)
+
+        def is_step_completed(self, step_index):
+            """Helper check for UI rendering."""
+            return step_index in self.completed_indices
 
         def start(self):
             if self.status == "LOCKED":
                 self.status = "ACTIVE"
-                self.current_step = 0
+                self.completed_indices = set()
                 if hasattr(store, "notify_event"):
                     store.notify_event(f"New {self.category}: {self.title}")
 
-        def advance(self):
-            if self.status == "ACTIVE":
-                self.current_step += 1
-                if self.current_step >= len(self.steps):
-                    self.status = "COMPLETED"
-                    if hasattr(store, "notify_event"):
-                        store.notify_event(f"Completed: {self.title}")
-                else:
-                    if hasattr(store, "notify_event"):
-                        store.notify_event(f"Updated: {self.title}")
-
         def complete_step(self, step_index):
-            """Completes a specific step index out of order."""
+            """Completes a specific step index (supports out-of-order execution)."""
             if self.status == "ACTIVE" and 0 <= step_index < len(self.steps):
-                # We can track completed step indices using a set
-                if not hasattr(self, "completed_indices"):
-                    self.completed_indices = set()
-                
                 if step_index not in self.completed_indices:
                     self.completed_indices.add(step_index)
                     
-                    # If all steps are completed, mark quest as COMPLETED!
+                    # If all steps are finished, mark quest COMPLETED
                     if len(self.completed_indices) >= len(self.steps):
                         self.status = "COMPLETED"
                         if hasattr(store, "notify_event"):
@@ -54,6 +54,13 @@ init python:
                         if hasattr(store, "notify_event"):
                             store.notify_event(f"Updated: {self.title}")
 
+        def advance(self):
+            """Advances the next remaining incomplete step sequentially."""
+            if self.status == "ACTIVE":
+                next_step = self.current_step
+                if next_step < len(self.steps):
+                    self.complete_step(next_step)
+
         def fail(self):
             if self.status == "ACTIVE":
                 self.status = "FAILED"
@@ -61,10 +68,10 @@ init python:
                     store.notify_event(f"Failed: {self.title}")
 
         def complete(self):
-            """Immediately completes the quest regardless of current step progress."""
+            """Immediately marks all steps as completed."""
             if self.status in ["LOCKED", "ACTIVE"]:
                 self.status = "COMPLETED"
-                self.current_step = len(self.steps)  # Set step pointer to the end
+                self.completed_indices = set(range(len(self.steps)))
                 if hasattr(store, "notify_event"):
                     store.notify_event(f"Completed: {self.title}")
 
@@ -266,12 +273,15 @@ screen quest_log_screen():
                                 for idx, step_text in enumerate(cur_q.steps):
                                     hbox:
                                         spacing 10
-                                        if cur_q.status == "COMPLETED" or idx < cur_q.current_step:
+                                        # Check if this specific step index was finished (in order or out of order)
+                                        if cur_q.status == "COMPLETED" or cur_q.is_step_completed(idx):
                                             text "[[✓]]" size 16 bold True color "#10b981"
                                             text step_text size 15 color "#9ca3af" strikethrough True
+                                        # Active objective pointer
                                         elif idx == cur_q.current_step and cur_q.status == "ACTIVE":
                                             text "[[►]]" size 16 bold True color "#f59e0b"
                                             text step_text size 15 bold True color "#ffffff"
+                                        # Unfinished step
                                         else:
                                             text "[[ ]]" size 16 color "#6b7280"
                                             text step_text size 15 color "#6b7280"
