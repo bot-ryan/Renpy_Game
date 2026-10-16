@@ -243,14 +243,10 @@ screen quest_log_screen():
                                         if cur_q.status == "COMPLETED" or cur_q.is_step_completed(idx):
                                             text "[[✓]]" size 16 bold True color "#10b981"
                                             text step_text size 15 color "#9ca3af" strikethrough True
-                                        # Active objective pointer (first uncompleted step)
-                                        elif idx == cur_q.current_step and cur_q.status == "ACTIVE":
-                                            text "[[►]]" size 16 bold True color "#f59e0b"
-                                            text step_text size 15 bold True color "#ffffff"
-                                        # Unfinished step
+                                        # All uncompleted / remaining steps
                                         else:
                                             text "[[ ]]" size 16 color "#6b7280"
-                                            text step_text size 15 color "#6b7280"
+                                            text step_text size 15 color "#d1d5db"
 
                             null height 15
                             if cur_q.reward_text != "None":
