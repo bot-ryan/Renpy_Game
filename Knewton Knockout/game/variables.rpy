@@ -1,16 +1,19 @@
 # STORES ALL VARIABLES USED IN THE GAME
 
-# Prologue #
+#General friendship points (from 0.1 to 1.0)
+default Allenna_friendship = 0.5
+default Celeste_friendship = 0.5
+
+# Prologue 
 default player_gender = "M"
 default brother_name = "Shakey"
 default sister_name = "Nana"
+
+# Chapter 1 - Intro 
 default likes_art = False
 default likes_science = False
 default likes_games = False
 default likes_sports = False
-
-
-# Chapter 1 - Intro #
 
 
 

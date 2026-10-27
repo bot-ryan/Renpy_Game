@@ -69,7 +69,7 @@ label ch3_meetingPeople:
             # Complete Step 3 (Head inside to class) and finish the main quest!
             $ quest_mgr.advance("main_courtyard")
             
-            return # or jump to next chapter label
+            #return # or jump to next chapter label
 
         scene courtyard2 day
 
@@ -90,7 +90,25 @@ label ch3_meetingPeople:
                 $ talked_allenna = True
                 # Complete Step 1 specifically (index 0)
                 $ quest_mgr.complete_step("main_courtyard", 0)
-                allenna "you talked to me"
+                allenna "Hey there! You must be new here. I'm Allenna, nice to meet you!"
+                allenna "During the term break, I went to a magic show in Mexico."
+                allenna "The magician told us that he would disappear on a count of 3."
+                allenna "He counted... 'uno... dos...'"
+                allenna "Then he disappeared, without a tres!"
+                
+
+                menu AllennaChoice01:
+                    allenna "Get it? Hahaha!" 
+
+                    "Laugh at her joke":
+                        $ Allenna_friendship += 0.1
+                        $ notify_event("Allenna appreciates you.", icon="images/ui/icons/relationship_positive.png")
+                        allenna "Finally, someone who appreciates fine comedy!"
+
+                    "Poker face":
+                        $ Allenna_friendship -= 0.1
+                        $ notify_event("Allenna feels offended.", icon="images/ui/icons/relationship_negative.png", sfx="audio/sfx/peppa-pig-fail.wav")
+                        allenna "Hey! Don't judge my humor!"
 
 
             jump .explore_loop
